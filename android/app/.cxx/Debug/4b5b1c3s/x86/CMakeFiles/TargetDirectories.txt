@@ -1,0 +1,2 @@
+C:/Users/ACER/AndroidStudioProjects/RUventure/android/app/.cxx/Debug/4b5b1c3s/x86/CMakeFiles/edit_cache.dir
+C:/Users/ACER/AndroidStudioProjects/RUventure/android/app/.cxx/Debug/4b5b1c3s/x86/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,2 @@
+C:/Users/ACER/AndroidStudioProjects/RUventure/android/app/.cxx/Debug/4b5b1c3s/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/ACER/AndroidStudioProjects/RUventure/android/app/.cxx/Debug/4b5b1c3s/armeabi-v7a/CMakeFiles/rebuild_cache.dir

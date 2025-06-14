@@ -23,49 +23,112 @@ class AuthScreen extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back, color: Color.fromRGBO(173, 255, 218, 1)),
               ),
             ),
-            const Spacer(),
+            const Spacer(flex: 5),
             Center(
               child: Container(
-                width: 170.73,
-                height: 165.25,
+                width: 218,
+                height: 118,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("RUventure.png"),
-                    fit: BoxFit.cover,
+                    image: AssetImage("assets/image/logo.png"),
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              "Любимые места в одном приложении",
-              style: TextStyle(fontFamily: "TT Norms Pro", fontSize: 16, color: Color.fromRGBO(
-                  2, 18, 254, 1)),
-              textAlign: TextAlign.center,
+            ShaderMask(
+              blendMode: BlendMode.srcIn,
+              shaderCallback: (Rect bounds) {
+                return LinearGradient(
+                  colors: [
+                    Color.fromRGBO(2, 18, 254, 1),   // Синий
+                    Color.fromRGBO(173, 255, 218, 1), // Бирюзовый
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ).createShader(bounds);
+              },
+              child: const Text(
+                "Любимые места \nв одном приложении",
+                style: TextStyle(
+                  fontFamily: "TT Norms Pro",
+                  fontSize: 32,
+                  color: Colors.white, // Важно: должен быть белый для работы градиента
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 150),
             const Text(
-              "Войдите или зарегистрируйтесь, чтобы использовать приложение",
-              style: TextStyle(fontFamily: "TT Norms Pro", fontSize: 16, color: Color.fromRGBO(
+              "Войдите или зарегистрируйтесь, чтобы \nиспользовать приложение",
+              style: TextStyle(fontFamily: "TT Norms Pro", fontSize: 18, color: Color.fromRGBO(
                   255, 255, 255, 1.0)),
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(2, 18, 254, 1),
-                minimumSize: const Size(301, 56),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32),
+            // Новая градиентная кнопка со свечением
+            Container(
+              width: 301,
+              height: 56,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(2, 18, 254, 0.5), // Слабое синее свечение
+                    blurRadius: 15,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32),
+                  ),
+                ),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(32),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(2, 18, 254, 1),   // Синий
+                        Color.fromRGBO(173, 255, 218, 1.0),   // Голубой
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                  child: Container(
+                    width: 301,
+                    height: 56,
+                    alignment: Alignment.center,
+                    child: const Text(
+                      "Войти",
+                      style: TextStyle(
+                        fontFamily: "TT Norms Pro",
+                        fontSize: 20,
+                        color: Colors.white,
+                        shadows: [
+                          Shadow( // Дополнительное свечение текста
+                            blurRadius: 10,
+                            color: Color.fromRGBO(173, 255, 218, 0.7),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              child: const Text("Войти", style: TextStyle(fontFamily: "TT Norms Pro", color: Colors.white)),
             ),
             const SizedBox(height: 10),
             OutlinedButton(
@@ -83,10 +146,10 @@ class AuthScreen extends StatelessWidget {
               ),
               child: const Text(
                 "Создать аккаунт",
-                style: TextStyle(fontFamily: "TT Norms Pro", color: Color.fromRGBO(173, 255, 218, 1)),
+                style: TextStyle(fontFamily: "TT Norms Pro",fontSize: 20, color: Color.fromRGBO(173, 255, 218, 1)),
               ),
             ),
-            const Spacer(),
+            const Spacer(flex: 10,),
           ],
         ),
       ),

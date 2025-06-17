@@ -64,6 +64,15 @@ flutter:
     - assets/image/image3.jpg
     - assets/image/image4.jpg
     - assets/image/logo.png
+    - assets/image/tomsk_1.png
+    - assets/image/tomsk_2.png
+    - assets/image/tomsk_3.png
+    - assets/image/place_1.jpg
+    - assets/image/place_2.png
+    - assets/image/place_3.png
+    - assets/image/place_4.png
+    - assets/image/place_5.png
+    - assets/image/place_6.png
   fonts:
     - family: Adventure_Indiana_Jones
       fonts:

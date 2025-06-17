@@ -23,6 +23,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'TT Norms Pro',
+        scaffoldBackgroundColor: Colors.black,
+      ),
       home: SplashScreen(),
     );
   }

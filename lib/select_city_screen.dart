@@ -9,12 +9,13 @@ class SelectCityScreen extends StatefulWidget {
 }
 
 class _SelectCityScreenState extends State<SelectCityScreen> {
-  String selectedCity = "Москва";
+  String selectedCity = "Томск";
   final List<String> cities = [
-    'Москва',
-    'Санкт-Петербург',
     'Казань',
-    'Новосибирск'
+    'Москва',
+    'Новосибирск',
+    'Санк-Петербург',
+    'Томск'
   ];
 
   void _navigateToHomeScreen() {

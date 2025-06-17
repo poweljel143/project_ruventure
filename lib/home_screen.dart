@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'lampochka_screen.dart';
+import 'favorite_screen.dart';
+import 'nearby_places_screen.dart';
+import 'routes_screen.dart';
+import 'food_screen.dart';
+import 'settings_screen.dart';
+import 'about_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -172,7 +179,12 @@ class _SearchAndFilterSection extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+                );
+              },
               icon: const Icon(Icons.favorite_border, color: Colors.white70),
               style: IconButton.styleFrom(
                 backgroundColor: const Color(0xFF000000),
@@ -231,8 +243,15 @@ class _PlacesGridState extends State<_PlacesGrid> {
               type: place['type'],
               isFavorite: place['isFavorite'],
               onFavoriteToggle: () => toggleFavorite(index),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LampochkaDetailScreen()),
+                );
+              },
+              isTappable: place['name'] == 'Лампочка', // <- Только "Лампочка" активна
             );
-          },
+            },
           childCount: places.length,
         ),
       ),
@@ -247,6 +266,8 @@ class _PlaceCard extends StatelessWidget {
   final String type;
   final bool isFavorite;
   final VoidCallback onFavoriteToggle;
+  final VoidCallback? onTap;
+  final bool isTappable;
 
   const _PlaceCard({
     required this.imagePath,
@@ -254,87 +275,97 @@ class _PlaceCard extends StatelessWidget {
     required this.type,
     required this.isFavorite,
     required this.onFavoriteToggle,
+    this.onTap,
+    this.isTappable = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset(imagePath, fit: BoxFit.cover),
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.transparent, Colors.black.withOpacity(0.8)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 12,
-            right: 12,
-            child: GestureDetector(
-              onTap: onFavoriteToggle,
-              child: Container(
-                padding: const EdgeInsets.all(6),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: isTappable ? onTap : () {}, // <- пустой onTap для ripple на всех
+        splashColor: Colors.white24,
+        borderRadius: BorderRadius.circular(20),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.asset(imagePath, fit: BoxFit.cover),
+              Container(
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.3),
-                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    colors: [Colors.transparent, Colors.black.withOpacity(0.8)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
                 ),
-                child: isFavorite
-                    ? ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return const LinearGradient(
-                      colors: [Color(0xFFADFFDA), Color(0xFF0212FF)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ).createShader(bounds);
-                  },
-                  child: const Icon(Icons.favorite, size: 25, color: Colors.white),
-                )
-                    : const Icon(Icons.favorite_border, color: Colors.white, size: 25),
               ),
-            ),
-          ),
-          Positioned(
-            bottom: 12,
-            left: 12,
-            right: 40,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+              Positioned(
+                bottom: 12,
+                right: 12,
+                child: GestureDetector(
+                  onTap: onFavoriteToggle,
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.3),
+                      shape: BoxShape.circle,
+                    ),
+                    child: isFavorite
+                        ? ShaderMask(
+                      shaderCallback: (Rect bounds) {
+                        return const LinearGradient(
+                          colors: [Color(0xFFADFFDA), Color(0xFF0212FF)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(bounds);
+                      },
+                      child: const Icon(Icons.favorite, size: 25, color: Colors.white),
+                    )
+                        : const Icon(Icons.favorite_border, color: Colors.white, size: 25),
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  type,
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
-                    fontSize: 12,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+              ),
+              Positioned(
+                bottom: 12,
+                left: 12,
+                right: 40,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      type,
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
+                        fontSize: 12,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              // 🗑️ Убрали иконку "↗"
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 }
-
 
 class _AppDrawer extends StatelessWidget {
   const _AppDrawer();
@@ -371,10 +402,10 @@ class _AppDrawer extends StatelessWidget {
           const SizedBox(height: 30),
 
           // Категории
-          _favoriteItemWithGradientIcon('Избранное'),
-          _simpleTextItem('Места'),
-          _simpleTextItem('Маршруты'),
-          _simpleTextItem('Вкусно поесть'),
+          _favoriteItemWithGradientIcon(context, 'Избранное'),
+          _navigateTextItem(context, 'Места рядом', const NearbyPlacesScreen()),
+          _navigateTextItem(context, 'Маршруты', const RoutesScreen()),
+          _navigateTextItem(context, 'Вкусно поесть', const FoodScreen()),
           _simpleTextItem('По барам'),
           _simpleTextItem('Сувениры'),
           _simpleTextItem('Музеи'),
@@ -385,15 +416,15 @@ class _AppDrawer extends StatelessWidget {
           const SizedBox(height: 40),
 
           // Нижние пункты
-          _simpleTextItem('Настройки'),
-          _simpleTextItem('О приложении'),
+          _navigateTextItem(context, 'Настройки', const SettingsScreen()),
+          _navigateTextItem(context, 'О приложении', const AboutScreen()),
           _simpleTextItem('Обратная связь'),
         ],
       ),
     );
   }
 
-  Widget _favoriteItemWithGradientIcon(String title) {
+  Widget _favoriteItemWithGradientIcon(BuildContext context, String title) {
     return ListTile(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -427,9 +458,16 @@ class _AppDrawer extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.pop(context); // закрыть боковое меню
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const FavoritesScreen()),
+        );
+      },
     );
   }
+
 
   Widget _simpleTextItem(String title) {
     return ListTile(
@@ -440,4 +478,17 @@ class _AppDrawer extends StatelessWidget {
       onTap: () {},
     );
   }
+}
+
+Widget _navigateTextItem(BuildContext context, String title, Widget screen) {
+  return ListTile(
+    title: Text(
+      title,
+      style: const TextStyle(color: Colors.white, fontSize: 16),
+    ),
+    onTap: () {
+      Navigator.pop(context); // закрываем Drawer
+      Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
+    },
+  );
 }

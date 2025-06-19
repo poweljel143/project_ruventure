@@ -12,6 +12,8 @@ class _LampochkaDetailScreenState extends State<LampochkaDetailScreen> {
   final List<String> images = [
     'https://upload.wikimedia.org/wikipedia/commons/6/65/Tomsk_Gastrohall_Lampochka.jpg',
     'https://upload.wikimedia.org/wikipedia/commons/9/9d/Tomsk_Lampochka_interior.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/6/65/Tomsk_Gastrohall_Lampochka.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/9/9d/Tomsk_Lampochka_interior.jpg',
   ];
   int currentIndex = 0;
 

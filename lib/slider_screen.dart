@@ -80,7 +80,7 @@ class _SliderScreenState extends State<SliderScreen> {
                       sliderData[index]["text"]!,
                       style: const TextStyle(
                         fontFamily: "TT Norms Pro",
-                        fontSize: 22,
+                        fontSize: 20,
                         fontWeight: FontWeight.w500,
                         color: Colors.white,
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'select_city_screen.dart';
 import 'login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -235,7 +236,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         borderRadius: BorderRadius.circular(32),
       ),
       child: ElevatedButton(
-        onPressed: _isCheckboxChecked ? () {} : null,
+        onPressed: _isCheckboxChecked ? () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const SelectCityScreen()),
+          );
+        } : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
